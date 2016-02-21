@@ -114,7 +114,7 @@ At this point we have created a results folder in the current folder (the folder
    >>>     #we simply read the data we have already computed.
    >>>         simulated_data = pickle.load(output_file)
 
-We give this *experiment* a name to be able to track the data better. We then create the path where to save an h5 table, which is a convenient file format. Then, the same definitions follow. After, we execute the simulation block only if the h5 table doesn't exist yet (the simulation was never performed). After the simulation is done, the simulation data is stored into the h5 table and saved into its defined location. Next time we execute this window, the h5 table would exist, the simulation would be skipped, and the simulation data would be directly loaded from the h5 table.
+We give this *experiment* a name to be able to track the data better. We then create the path where to save the table, which is a in convenient file format. Then, the same definitions follow. After, we execute the simulation block only if the saved file doesn't exist yet (the simulation was never performed). After the simulation is done, the simulation data is stored into the file and saved into its defined location. Next time we execute this window, the saved file would exist, the simulation would be skipped, and the simulation data would be directly loaded from saved data.
 
 **Window for plotting**
    >>> #Window for plotting
