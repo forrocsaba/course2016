@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Solving the problem &mdash; sphinx 2.7 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="sphinx 2.7 documentation" href="index.html" />
+    <link rel="next" title="Functions" href="functions.html" />
+    <link rel="prev" title="Problem Statement" href="problemstatement.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="functions.html" title="Functions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="problemstatement.html" title="Problem Statement"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">sphinx 2.7 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="solving-the-problem">
+<h1>Solving the problem<a class="headerlink" href="#solving-the-problem" title="Permalink to this headline">¶</a></h1>
+<p>Let&#8217;s take a look at a couple wires within the network.</p>
+<a class="reference internal image-reference" href="_images/mesh_to_res-pics.png"><img alt="_images/mesh_to_res-pics.png" src="_images/mesh_to_res-pics.png" style="width: 304.0px; height: 212.0px;" /></a>
+<p>The wire intersections consistute the contact resistances. The length of the wire bit between two contacts is a resistance of the magnitude of <span class="math">\(\rho\cdot l\)</span>, where <span class="math">\(l\)</span> is the length of the wire bit, and <span class="math">\(\rho\)</span> is the linear resistivity. In an equivalent resistor network picture, the system looks like the following</p>
+<a class="reference internal image-reference" href="_images/equivalentpic.png"><img alt="_images/equivalentpic.png" src="_images/equivalentpic.png" style="width: 469.0px; height: 340.0px;" /></a>
+<p>Now how do we compute the equivalent resistance of the whole network ? There are many ways to do it, but we need to make a choice. In this case, we chose to say that the current entering at the left electrode is 1 Ampères, and so is the exiting current (obviously). Then, the voltage drop accross the sample is going to yield the equivalent resistance, since from Ohm&#8217;s Law:</p>
+<div class="math">
+\[U_{drop} = R_{eq}\cdot I \equiv R_{eq}\]</div>
+<p>Every black dot (node) on the figure above as attributed a potential <span class="math">\(u_i\)</span>. If we can find all the potentials at all the nodes, we can find in particular the potential on the left and the right electrode, and from there calculate the voltage drop. In order to find this, we need the law that is obeyed by this system. The set of laws are the Kirchhoff laws, and in particular the conservation of current in the system.</p>
+<p>At every node there is as much current entering as there is current leaving. Therefore,</p>
+<div class="math">
+\[\begin{split}\sum \limits_{j=in-out} I_{j} &amp; = 0 \\
+\sum \limits_{j=n_i} \frac{u_i - u_j}{R_{ij}} &amp; = 0\end{split}\]</div>
+<p>where <span class="math">\(n_i\)</span> is the set of neighbors of node <span class="math">\(u_i\)</span>. The above set of equations is valid unless the node considered is the electrode, in which case the sum of currents is either -1 (left electrode) or 1 (right electrode). This is a system of <span class="math">\(N\)</span> linear equations (every distinct i constitutes one equation), with <span class="math">\(N\)</span> the number of nodes, that can be written in matrix form as follows, given that <span class="math">\(\vec{u} := \left(u_0,u_1,\ldots,u_N\right)\)</span>, <span class="math">\(G_{ij} = \frac{1}{R_{ij}}\)</span> if <span class="math">\(i\neq j\)</span> and <span class="math">\(G_{ii} = \sum \limits_{j=n_i}\frac{1}{R_{ij}}\)</span> and <span class="math">\(C=\left(0,\ldots,\underbrace{-1}_{\text{left electrode}},\ldots,\underbrace{1}_{\text{right electrode}},\ldots,0\right)\)</span></p>
+<div class="math">
+\[G\cdot \vec{u}^T = C\]</div>
+<p>But at this point <span class="math">\(G\)</span> is not invertible because the system of equations is redundant. Indeed, the inversion of the system of equations means that there is one unique value for every one of the potential nodes that solves the problem. But this is not true. We can choose all the potentials up to a constant factor, since it is the potential <em>drop</em> that matters. It doesn&#8217;t matter if the left and right electrodes are at 0V and 5V, or 12V and 17V. The physics stays the same. To lift this degeneracy, we introduce the choice of <span class="math">\(u_{i=\text{left}} = 0\)</span>, which means that the left electrode is grounded. This reduces the number of linear equations by 1, and now the potential on the right electrode is the equivalent resistance (since the voltage drop accross the sample is now the voltage on the right electrode). Therefore, the solution to the problem is</p>
+<div class="math">
+\[R_{eq} = \left[G^{-1}\cdot C\right]_{i=\text{right}}\]</div>
+<p>So the whole problem reduces to</p>
+<ul class="simple">
+<li>Find all the intersections between all the sticks</li>
+<li>Attribute potential nodes at every end of the resistors (contacts and bits)</li>
+<li>Extract from the intersection data which node is connected to which other node and by what resistance</li>
+<li>Create the <span class="math">\(G\)</span> matrix and solve the linear problem</li>
+<li>The equivalent resistance is the potential on the right electrode</li>
+</ul>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="problemstatement.html"
+                        title="previous chapter">Problem Statement</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="functions.html"
+                        title="next chapter">Functions</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/solsyst.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="functions.html" title="Functions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="problemstatement.html" title="Problem Statement"
+             >previous</a> |</li>
+        <li><a href="index.html">sphinx 2.7 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, forro.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

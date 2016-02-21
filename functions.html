@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Functions &mdash; sphinx 2.7 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '2.7',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="top" title="sphinx 2.7 documentation" href="index.html" />
+    <link rel="next" title="Workflow examples" href="examples_of_worfklow.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="examples_of_worfklow.html" title="Workflow examples"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">sphinx 2.7 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="functions">
+<h1>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h1>
+<p>All the functions and objects that are needed to start the simulations are contained in the res_exercise.py file. This needs to be imported at the beginning of your notebook so that you can use the following definitions.</p>
+<p><tt class="xref py py-class docutils literal"><span class="pre">Sample</span></tt> is an <em>object</em> in Python. It is more than a function, because you can give it <em>attributes</em>. These are parameters that are stored in the <em>object</em>, that you can access at any time. The Sample object has the following attributes</p>
+<ul class="simple">
+<li>a length (current flow axis) in <span class="math">\(\mu m\)</span></li>
+<li>a width in <span class="math">\(\mu m\)</span></li>
+<li>the number of nanowires</li>
+<li>length of the wires in <span class="math">\(\mu m\)</span></li>
+<li>a list of the endpoints of all the wires</li>
+</ul>
+<p>Let&#8217;s create a sample.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>  <span class="c">#this is for handling floats efficiently</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">resistor_exercise</span> <span class="kn">as</span> <span class="nn">resex</span> <span class="c">#the .py file containing all the definitions of this problem</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">number_of_wires</span> <span class="o">=</span> <span class="mi">2500</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample_length</span> <span class="o">=</span> <span class="mf">50.</span> <span class="c">#the point means it will be stored as float, not an int</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample_width</span> <span class="o">=</span> <span class="mf">50.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire_length</span> <span class="o">=</span> <span class="mf">5.</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sample</span><span class="o">=</span><span class="n">resex</span><span class="o">.</span><span class="n">Sample</span><span class="p">(</span><span class="n">sample_length</span><span class="p">,</span><span class="n">sample_width</span><span class="p">,</span><span class="n">number_of_wires</span><span class="p">,</span><span class="n">wire_length</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>resex</strong> gives you access to all the definitions inside res_exercise.py. Inside is a class definition, <tt class="xref py py-class docutils literal"><span class="pre">Sample</span></tt> which you can initialize with the 4 parameters above. This creates a Sample object, stored now in a variable with the name sample (could be called jxchsdg, but it is better to be explicit).</p>
+<p>You can read all the attributes that are inside the object now</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sample</span><span class="o">.</span><span class="n">length</span><span class="p">,</span><span class="n">sample</span><span class="o">.</span><span class="n">width</span><span class="p">,</span><span class="n">sample</span><span class="o">.</span><span class="n">wire_length</span><span class="p">,</span><span class="n">sample</span><span class="o">.</span><span class="n">num_wires</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="mf">50.0</span><span class="p">,</span> <span class="mf">50.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mi">2500</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sample</span><span class="o">.</span><span class="n">wire_list</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">array</span><span class="p">([[</span> <span class="mf">30.32970707</span><span class="p">,</span>  <span class="mf">10.11090525</span><span class="p">,</span>  <span class="mf">26.05764485</span><span class="p">,</span>  <span class="mf">12.70888223</span><span class="p">],</span>
+<span class="go">           [ 10.55096734,   2.75473903,   5.80341127,   4.32340451],</span>
+<span class="go">           [ 36.54826468,  32.28029196,  40.67108392,  35.10913653],</span>
+<span class="go">           ...,</span>
+<span class="go">           [ 26.57784435,   4.29026876,  26.63457788,   9.28994688],</span>
+<span class="go">           [ 26.93577222,  13.64105079,  22.86427251,  16.54327237],</span>
+<span class="go">           [ 46.35783415,  44.20297715,  44.62074911,  48.89153082]])</span>
+</pre></div>
+</div>
+<p>The center points of the wires are simply distributed within the bounds of the sample, and than a segment of the length of the wire is rotated by a random angle around the center points.</p>
+<p>The object has inbuilt methods to perform measurements on it, show it, etc.</p>
+<p><tt class="xref py py-class docutils literal"><span class="pre">Sample.plot_sample()</span></tt> plots the sample quite simply. To make sure that it gets plotted, and plotted inside your notebook, you need to import matplotlib.pyplot and make it inline</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample</span><span class="o">.</span><span class="n">plot_sample</span><span class="p">()</span>
+</pre></div>
+</div>
+<img alt="_images/dasample.png" src="_images/dasample.png" />
+<p>which shows the electrode pads in red, the supposed stretchable matrix in blue, and the wires in black. Notice that a method is called with parentheses ().</p>
+<p><tt class="xref py py-class docutils literal"><span class="pre">Sample.t_and_u()</span></tt> calculates the relative positions of all the cuts along every wire to know who is connected to whom, and how long the wire bits are. The <em>t</em> (and <em>u</em>) variable is the parameters interpolating the wires as <span class="math">\(\vec{A} + t(\vec{B}-\vec{A})\)</span> with <span class="math">\(t \in [0,1]\)</span>, and <span class="math">\(\vec{A},\vec{B}\)</span> are the beginning and end points of a wire. The details are can be found here: <a class="reference external" href="http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect">http://stackoverflow.com/questions/563198/how-do-you-detect-where-two-line-segments-intersect</a></p>
+<p>It is calculated in such a way that all negative entries mean there are no intersections. All the positive entries (which can only be between 0 and 1) are there where the wires get cut.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tu_matrix</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">t_and_u</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">who_cuts_wire_n5</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">tu_matrix</span><span class="p">[</span><span class="mi">5</span><span class="p">,:]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">who_cuts_wire_n5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">array</span><span class="p">([</span>  <span class="mi">51</span><span class="p">,</span>  <span class="mi">142</span><span class="p">,</span>  <span class="mi">185</span><span class="p">,</span>  <span class="mi">362</span><span class="p">,</span>  <span class="mi">437</span><span class="p">,</span>  <span class="mi">506</span><span class="p">,</span>  <span class="mi">537</span><span class="p">,</span>  <span class="mi">558</span><span class="p">,</span>  <span class="mi">567</span><span class="p">,</span>  <span class="mi">639</span><span class="p">,</span> <span class="mi">1023</span><span class="p">,</span>
+<span class="go">         1352, 1432, 1856, 1989, 2059, 2163, 2221, 2238, 2240, 2246, 2381,</span>
+<span class="go">         2412]),) #these are the wires, in the wire_list, which cut wire number 5</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">how_many_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">tu_matrix</span><span class="p">[</span><span class="mi">5</span><span class="p">,:]</span><span class="o">&gt;</span><span class="mi">0</span><span class="p">)</span> <span class="c">#or len(who_cuts_wire_n5[0])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">how_many_times</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mi">23</span>
+</pre></div>
+</div>
+<p><tt class="xref py py-class docutils literal"><span class="pre">Sample.measure_percolation()</span></tt> checks whether there is a wire path running from the left electrode to the right electrode (i.e, the system <em>percolates</em>). If this is not the case, then the sample is not conducting. It returns a triplet of output : the t_and_u matrix, the index of all the wires participating in the percolation, and binary percolation answer (0 if not, 1 if yes).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tu_matrix</span><span class="p">,</span> <span class="n">percolating_wire_indices</span><span class="p">,</span> <span class="n">percolate</span> <span class="o">=</span> <span class="n">sample</span><span class="o">.</span><span class="n">measure_percolation</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">percolate</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="bp">True</span>
+</pre></div>
+</div>
+<p><tt class="xref py py-class docutils literal"><span class="pre">Sample.calculate_res_system(linear_res,wire_width,contact_res)</span></tt> calculates the equivalent resistance of the system for a given wire linear resistance, wire radius and contact resistance. All values are in units of micrometer. This function does not return anything. It updates the state of the object and gives it an attribute, res_system.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">sample</span><span class="o">.</span><span class="n">calculate_res_system</span><span class="p">(</span><span class="mf">1.59</span><span class="p">,</span><span class="mf">0.03</span><span class="p">,</span><span class="mi">10000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sample</span><span class="o">.</span><span class="n">res_system</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="mf">1058.3</span>
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="installation.html"
+                        title="previous chapter">Installation</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="examples_of_worfklow.html"
+                        title="next chapter">Workflow examples</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/functions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="examples_of_worfklow.html" title="Workflow examples"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="installation.html" title="Installation"
+             >previous</a> |</li>
+        <li><a href="index.html">sphinx 2.7 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, forro.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
